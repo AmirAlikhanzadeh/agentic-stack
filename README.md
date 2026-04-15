@@ -33,16 +33,19 @@ nightly dream cycle, and adapters for six harnesses.
 ## Quickstart
 
 ```bash
-git clone https://github.com/codejunkie99/agentic-stack.git
-cd agentic-stack
-
-# pick your harness
-./install.sh claude-code        # or cursor | windsurf | opencode |
-                                #     openclient | hermes | standalone-python
+# zero-install — drop the brain into any existing project
+npx create-agentic-stack claude-code
+# or: cursor | windsurf | opencode | openclient | hermes | standalone-python
 ```
 
 Then customize `.agent/memory/personal/PREFERENCES.md` with your own
 conventions — that's the one file every user should edit on day one.
+
+> **Clone instead?**
+> ```bash
+> git clone https://github.com/codejunkie99/agentic-stack.git
+> cd agentic-stack && ./install.sh claude-code
+> ```
 
 ## Repo layout
 
