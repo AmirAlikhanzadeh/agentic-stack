@@ -1,0 +1,118 @@
+# agentic-stack
+
+> **One brain, many harnesses.** A portable `.agent/` folder (memory + skills
+> + protocols) that plugs into Claude Code, Cursor, Windsurf, OpenCode,
+> OpenClient, Hermes, or a DIY Python loop — and keeps its knowledge when
+> you switch.
+
+<p align="center">
+  <img src="docs/diagram.svg" alt="agentic-stack architecture" width="880"/>
+</p>
+
+Based on the article:
+**["The Agentic Stack"](https://x.com/Av1dlive/status/2044453102703841645?s=20)** · by [@AV1DLIVE](https://twitter.com/AV1DLIVE)
+
+---
+
+## What this is
+
+Every guide shows the folder structure. This repo gives you the folder
+structure **plus the files that actually go inside** — a working portable
+brain with five seed skills, four memory layers, enforced permissions, a
+nightly dream cycle, and adapters for six harnesses.
+
+- **Memory** — `working/`, `episodic/`, `semantic/`, `personal/`. Each
+  layer has its own retention policy. Salience-scored retrieval; nightly
+  compression.
+- **Skills** — progressive disclosure. A lightweight manifest always loads;
+  full `SKILL.md` files only load when triggers match the task. Every
+  skill ships with a self-rewrite hook.
+- **Protocols** — typed tool schemas, a `permissions.md` that the
+  pre-tool-call hook enforces, and a delegation contract for sub-agents.
+
+## Quickstart
+
+```bash
+git clone https://github.com/codejunkie99/agentic-stack.git
+cd agentic-stack
+
+# pick your harness
+./install.sh claude-code        # or cursor | windsurf | opencode |
+                                #     openclient | hermes | standalone-python
+```
+
+Then customize `.agent/memory/personal/PREFERENCES.md` with your own
+conventions — that's the one file every user should edit on day one.
+
+## Repo layout
+
+```
+.agent/                         # the portable brain (same across all harnesses)
+├── AGENTS.md                   # the map
+├── harness/                    # dumb conductor + hooks (standalone path)
+├── memory/                     # working / episodic / semantic / personal
+├── skills/                     # _index.md + _manifest.jsonl + SKILL.md files
+├── protocols/                  # permissions + tool schemas + delegation
+└── tools/                      # skill loader, memory reflect, budget tracker
+
+adapters/                       # one small shim per harness
+├── claude-code/   (CLAUDE.md + settings.json hooks)
+├── cursor/        (.cursor/rules/*.mdc)
+├── windsurf/      (.windsurfrules)
+├── opencode/      (AGENTS.md + opencode.json)
+├── openclient/    (system-prompt include)
+├── hermes/       (AGENTS.md)
+└── standalone-python/  (DIY conductor entrypoint)
+
+docs/                           # architecture, getting-started, per-harness
+examples/                       # minimal first_run.py
+install.sh                      # one-command adapter install
+```
+
+## Supported harnesses
+
+| Harness | Config file it reads | Hook support |
+|---|---|---|
+| **Claude Code** | `CLAUDE.md` + `.claude/settings.json` | yes (PostToolUse, Stop) |
+| **Cursor** | `.cursor/rules/*.mdc` | no (manual reflect calls) |
+| **Windsurf** | `.windsurfrules` | no (manual reflect calls) |
+| **OpenCode** | `AGENTS.md` + `opencode.json` | partial (permission rules) |
+| **OpenClient** | system-prompt include | varies by fork |
+| **Hermes Agent** | `AGENTS.md` (agentskills.io compatible) | partial (own memory) |
+| **Standalone Python** | `run.py` (any LLM) | yes (full control) |
+
+## Seed skills
+
+- **skillforge** — creates new skills from recurring patterns
+- **memory-manager** — runs reflection cycles, promotes lessons
+- **git-proxy** — all git ops, with safety constraints
+- **debug-investigator** — reproduce → isolate → hypothesize → verify
+- **deploy-checklist** — the fence between staging and production
+
+## How it compounds
+
+1. Skills log every action to episodic memory.
+2. `memory-manager` detects recurring patterns, promotes them to semantic.
+3. `on_failure` flags skills that fail 3+ times in 14 days for rewrite.
+4. Self-rewrite hooks on each skill update `KNOWLEDGE.md` conservatively.
+5. `git log .agent/memory/` becomes the agent's autobiography.
+
+See [`docs/architecture.md`](docs/architecture.md) for the full picture.
+
+## Run the dream cycle nightly
+
+```bash
+crontab -e
+0 3 * * * cd /path/to/project && python3 .agent/memory/auto_dream.py >> .agent/memory/dream.log 2>&1
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+## Credits
+
+Design adapted from the author's article on building an agentic stack, plus
+patterns from Gstack, Claude Code's memory system, and conversations in
+the agent-engineering community. Built with the hypothesis that
+**harness-agnosticism is the point**.
