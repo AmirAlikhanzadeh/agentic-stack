@@ -1,14 +1,18 @@
-# Lessons (auto-distilled + manually curated)
+# CitizenTea -- Learned Lessons
 
-> Entries here outlive specific tasks. The dream cycle promotes recurring
-> patterns from episodic into this file. Feel free to curate manually —
-> delete bad lessons, tighten wording, reorganize sections.
+> This file is auto-rendered from lessons.jsonl by auto_dream.py.
+> Hand-curated content above the sentinel line is preserved across renders.
+> Do not edit below the sentinel line manually.
 
-## Seed lessons
-- Always read `protocols/permissions.md` before any destructive tool call.
-- Write the failing test before writing the fix.
-- Log to episodic memory on every significant action, success or failure.
-- When a skill has failed 3+ times in 14 days, propose a rewrite.
-- Never force push to protected branches under any circumstance.
+## How To Use This File
+This file contains lessons agents have learned from observing CitizenTea's
+actual performance data over time. Every agent reads this at the start of
+each session. Lessons here take precedence over general AI knowledge about
+tea marketing.
 
-## Auto-promoted entries will be appended below
+## Starter Notes
+- No performance data recorded yet
+- First lessons will appear after 2-3 weeks of operation and nightly dream cycles
+- Check .agent/memory/episodic/ for raw session logs
+
+<!-- LESSONS_SENTINEL -- DO NOT REMOVE OR EDIT THIS LINE -->
